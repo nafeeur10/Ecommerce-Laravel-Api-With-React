@@ -47,4 +47,9 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->modelClass;
     }
+
+    public function getFirstWhere(...$params): ?Model
+    {
+        return $this->model->firstWhere(...$params);
+    }
 }
