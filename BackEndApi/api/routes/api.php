@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\{AuthController, ProductController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Public Routes
+// Authentication Routes
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
+// Product Routes
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id}', [ProductController::class, 'show']);
+    Route::get('/search/{search}', [ProductController::class, 'search']);
+    Route::post('/create', [ProductController::class, 'create'])->middleware('auth:sanctum');
+    Route::put('/update/{product}', [ProductController::class, 'update'])->middleware('auth:sanctum');
+    Route::delete('/{id}', [ProductController::class, 'delete'])->middleware('auth:sanctum');
+});
 
-// Authenticated Routes
-//Route::group(['middleware' => ['auth:sanctum']], function(){
-//    Route::delete('logout', [AuthController::class, 'logout']);
-//});

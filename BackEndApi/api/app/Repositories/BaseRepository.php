@@ -52,4 +52,9 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->firstWhere(...$params);
     }
+
+    public function search($columnName, $searchParameter)
+    {
+        return $this->model->where($columnName, 'like', '%' . $searchParameter . '%')->get();
+    }
 }
