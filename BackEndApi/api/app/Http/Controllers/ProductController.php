@@ -76,6 +76,16 @@ class ProductController extends Controller
         ]);
     }
 
+    public function sortAsc()
+    {
+        return response()->json($this->productRepository->sort('asc'));
+    }
+
+    public function sortDesc()
+    {
+        return response()->json($this->productRepository->sort('desc'));
+    }
+
     private function checkAuth()
     {
         if(!(auth()->user()['role'] === 'admin'))

@@ -24,6 +24,8 @@ Route::prefix('products')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/{id}', [ProductController::class, 'show']);
     Route::get('/search/{search}', [ProductController::class, 'search']);
+    Route::get('/sort/asc', [ProductController::class, 'sortAsc']);
+    Route::get('/sort/desc', [ProductController::class, 'sortDesc']);
     Route::post('/create', [ProductController::class, 'create'])->middleware('auth:sanctum');
     Route::put('/update/{product}', [ProductController::class, 'update'])->middleware('auth:sanctum');
     Route::delete('/{id}', [ProductController::class, 'delete'])->middleware('auth:sanctum');
