@@ -31,3 +31,8 @@ Route::prefix('products')->group(function () {
     Route::delete('/{id}', [ProductController::class, 'delete'])->middleware('auth:sanctum');
 });
 
+// Order Routes
+Route::prefix('orders')->group(function () {
+
+});
+
