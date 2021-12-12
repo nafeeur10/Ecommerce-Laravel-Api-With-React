@@ -58,8 +58,8 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->where($columnName, 'like', '%' . $searchParameter . '%')->get();
     }
 
-    public function sort($sortOrder)
+    public function sort($columnName, $sortOrder)
     {
-        return $this->model->orderBy('price', $sortOrder)->get();
+        return $this->model->orderBy($columnName, $sortOrder)->get();
     }
 }

@@ -78,12 +78,12 @@ class ProductController extends Controller
 
     public function sortAsc()
     {
-        return response()->json($this->productRepository->sort('asc'));
+        return response()->json($this->productRepository->sort('price', 'asc'));
     }
 
     public function sortDesc()
     {
-        return response()->json($this->productRepository->sort('desc'));
+        return response()->json($this->productRepository->sort('price','desc'));
     }
 
     private function checkAuth()

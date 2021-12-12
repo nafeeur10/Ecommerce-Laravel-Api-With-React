@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AuthController, ProductController};
+use App\Http\Controllers\{AuthController, ProductController, OrderController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +33,6 @@ Route::prefix('products')->group(function () {
 
 // Order Routes
 Route::prefix('orders')->group(function () {
-
+    Route::post('/create', [OrderController::class, 'create'])->middleware('auth:sanctum');
 });
 
