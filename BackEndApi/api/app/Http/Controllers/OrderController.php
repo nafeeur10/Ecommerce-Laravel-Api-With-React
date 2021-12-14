@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Http\Requests\OrderUpdateRequest;
 use App\Repositories\OrderRepository;
 use App\Services\OrderService;
 
@@ -35,5 +36,10 @@ class OrderController extends Controller
         $orderDetails = $this->orderRepository->getOneById($orderId);
         if($orderDetails) return response()->json($orderDetails);
         return response()->json(['message' => 'Order not found'], 404);
+    }
+
+    public function update(OrderUpdateRequest $request, $order)
+    {
+        return $this->orderService->setOrderId($order)->update($request->validated());
     }
 }

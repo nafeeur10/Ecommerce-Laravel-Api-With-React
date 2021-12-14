@@ -11,12 +11,14 @@ class OrderService
     private $orderProductsData;
     private OrderRepository $orderRepository;
     private OrderProductRepository $orderProductRepository;
+    private RoleCheckerService $roleCheckerService;
     public $orderId = null;
 
-    public function __construct(OrderRepository $orderRepository, OrderProductRepository $orderProductRepository)
+    public function __construct(OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, RoleCheckerService $roleCheckerService)
     {
         $this->orderRepository = $orderRepository;
         $this->orderProductRepository = $orderProductRepository;
+        $this->roleCheckerService = $roleCheckerService;
     }
 
     public function setOrderId($id)
@@ -44,6 +46,30 @@ class OrderService
         }
 
         return $order && $orderProductsResponse;
+    }
+
+    public function update($orderStatus)
+    {
+        if($this->checkAuthorityToUpdateStatus($orderStatus))
+        {
+            $updatedOrder = $this->orderRepository->update($this->orderId, $orderStatus);
+            if($updatedOrder) return response()->json(['message' => 'Order updated successfully'], 200);
+            else return response()->json(['message' => 'Something went wrong'], 500);
+        }
+        else
+        {
+            return response()->json(['message' => 'You are not authorized to do this action'], 401);
+        }
+    }
+
+    private function checkAuthorityToUpdateStatus($orderStatus)
+    {
+        $order = $this->orderRepository->getOneById($this->orderId);
+        if(!$this->roleCheckerService->checkAdmin() && ($order->status === OrderStatus::ACCEPTED || $order->status === OrderStatus::REJECTED || $orderStatus['status'] != OrderStatus::CANCEL))
+        {
+            return false;
+        }
+        return true;
     }
 
     private function makeOrderData()
