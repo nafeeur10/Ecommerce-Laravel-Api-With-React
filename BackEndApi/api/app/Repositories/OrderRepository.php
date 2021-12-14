@@ -8,4 +8,9 @@ class OrderRepository extends BaseRepository
     {
         return $this->model->create($data);
     }
+
+    public function filter($columnName, $filterParams)
+    {
+        return $this->model->where($columnName, $filterParams)->get();
+    }
 }

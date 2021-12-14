@@ -34,5 +34,7 @@ Route::prefix('products')->group(function () {
 // Order Routes
 Route::prefix('orders')->group(function () {
     Route::post('/create', [OrderController::class, 'create'])->middleware('auth:sanctum');
+    Route::get('/filter/{params}', [OrderController::class, 'filter'])->middleware('auth:sanctum');
+    Route::get('/search/{id}', [OrderController::class, 'search'])->middleware('auth:sanctum');
 });
 

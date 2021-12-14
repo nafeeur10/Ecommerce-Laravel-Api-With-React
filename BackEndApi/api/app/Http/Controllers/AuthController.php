@@ -29,9 +29,8 @@ class AuthController extends Controller
         $user = $this->authRepository->create($request->validated());
         return response()->json([
             'message' => 'User created successfully',
-            'code' => 201,
             'token' => $this->tokenManager->createToken($user)->plainTextToken,
-        ]);
+        ], 201);
     }
 
     public function login(LoginRequest $request): JsonResponse
@@ -47,12 +46,12 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $this->tokenManager->createToken($user)->plainTextToken,
-        ]);
+        ], 200);
     }
 
     public function logout(Request $request): JsonResponse
     {
         auth()->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Logged Out']);
+        return response()->json(['message' => 'Logged Out'], 200);
     }
 }

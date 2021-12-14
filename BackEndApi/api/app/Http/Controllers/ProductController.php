@@ -35,9 +35,8 @@ class ProductController extends Controller
 
         return response()->json([
            'message' => 'Product uploaded successfully',
-           'data' => $product,
-           'code' => 201
-        ]);
+           'data' => $product
+        ], 201);
     }
 
     public function show($id): JsonResponse
@@ -52,9 +51,8 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Product updated successfully',
-            'data' => $product,
-            'code' => 200
-        ]);
+            'data' => $product
+        ], 200);
     }
 
     public function delete(Product $product): JsonResponse
@@ -64,8 +62,7 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Product deleted successfully',
-            'code' => 200
-        ]);
+        ], 200);
     }
 
     public function search($search)
@@ -73,7 +70,7 @@ class ProductController extends Controller
         $productSearchResult = $this->productRepository->search('name', $search);
         return response()->json([
            'data' => $productSearchResult
-        ]);
+        ], 200);
     }
 
     public function sortAsc()
