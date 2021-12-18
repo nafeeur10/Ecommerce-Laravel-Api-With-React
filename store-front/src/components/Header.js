@@ -52,9 +52,11 @@ const Header = () => {
                     </Link>
                     </div>
                     <div className="flow-root">
+                    <Link to="/register">
                     <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
                         Create account
                     </a>
+                    </Link>
                     </div>
                 </div>
                 </div>
@@ -94,9 +96,11 @@ const Header = () => {
                             </a>
                         </Link>
                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                        <Link to="/register">
                         <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                             Create account
                         </a>
+                        </Link>
                         </div>
 
                         {/* Search */}
@@ -109,14 +113,16 @@ const Header = () => {
 
                         {/* Cart */}
                         <div className="ml-4 flow-root lg:ml-6">
-                        <a href="#" className="group -m-2 p-2 flex items-center">
-                            <ShoppingBagIcon
-                            className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                            aria-hidden="true"
-                            />
-                            <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                            <span className="sr-only">items in cart, view bag</span>
-                        </a>
+                            <Link to="/cart">
+                                <a href="#" className="group -m-2 p-2 flex items-center">
+                                    <ShoppingBagIcon
+                                    className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                                    aria-hidden="true"
+                                    />
+                                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                    <span className="sr-only">items in cart, view bag</span>
+                                </a>
+                            </Link>
                         </div>
                     </div>
                     </div>

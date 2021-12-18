@@ -11,6 +11,10 @@ import Home from "./pages/Home/Home";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Login from "./pages/Auth/login"
+import Register from "./pages/Auth/register"
+import Cart from "./pages/ShopingCart/cart"
+import Checkout from "./pages/ShopingCart/checkout"
+import ProductDetails from "./pages/ProductDetails/index"
 // import ProductDetail from "./pages/ProductDetail/ProductDetail";
 // import ShoppingCart from "./pages/ShopingCart/ShoppingCart";
 
@@ -24,6 +28,10 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />}/>
                 <Route path="login" element={<Login />}/>
+                <Route path="register" element={<Register />}/>
+                <Route path="cart" element={<Cart />}/>
+                <Route path="checkout" element={<Checkout />}/>
+                <Route path="product-details/:id" element={<ProductDetails />} />
             </Routes>
           <Footer/>
       </React.Fragment>
