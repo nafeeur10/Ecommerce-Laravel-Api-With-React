@@ -1,91 +1,45 @@
+import HomePageProducts from "../../components/HomePageProducts"
 
+const features = [
+  {
+    name: 'FREE RETURNS',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    icon: "https://img.icons8.com/color/48/000000/return-purchase.png",
+  },
+  {
+    name: 'NO HIDDEN FEES',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    icon: "https://img.icons8.com/color/48/000000/no-hidden-fee.png",
+  },
+  {
+    name: 'SAME DAY DELIVERY',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    icon: "https://img.icons8.com/color/48/000000/time-card.png",
+  },
+  {
+    name: 'MOBILE NOTIFICATION',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    icon: "https://img.icons8.com/color/48/000000/push-notifications.png",
+  },
+]
 
-
-  
-  const products = [
-    {
-      id: 1,
-      name: 'Earthen Bottle',
-      href: '#',
-      price: '$48',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
-      imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
-    },
-    {
-      id: 2,
-      name: 'Nomad Tumbler',
-      href: '#',
-      price: '$35',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
-      imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
-    },
-    {
-      id: 3,
-      name: 'Focus Paper Refill',
-      href: '#',
-      price: '$89',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
-      imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-    },
-    {
-      id: 4,
-      name: 'Machined Mechanical Pencil',
-      href: '#',
-      price: '$35',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg',
-      imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
-    },
-    // More products...
-  ]
-  
-  const features = [
-    {
-      name: 'FREE RETURNS',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: "https://img.icons8.com/color/48/000000/return-purchase.png",
-    },
-    {
-      name: 'NO HIDDEN FEES',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: "https://img.icons8.com/color/48/000000/no-hidden-fee.png",
-    },
-    {
-      name: 'SAME DAY DELIVERY',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: "https://img.icons8.com/color/48/000000/time-card.png",
-    },
-    {
-      name: 'MOBILE NOTIFICATION',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: "https://img.icons8.com/color/48/000000/push-notifications.png",
-    },
-  ]
-  
-  const newFeatures = [
-    { name: 'Origin', description: 'Designed by Good Goods, Inc.' },
-    { name: 'Material', description: 'Solid walnut base with rare earth magnets and powder coated steel card cover' },
-    { name: 'Dimensions', description: '6.25" x 3.55" x 1.15"' },
-    { name: 'Finish', description: 'Hand sanded and finished with natural oil' },
-    { name: 'Includes', description: 'Wood card tray and 3 refill packs' },
-    { name: 'Considerations', description: 'Made from natural materials. Grain and color vary with each item.' },
-  ]
-  
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
-  
+const newFeatures = [
+  { name: 'Origin', description: 'Designed by Good Goods, Inc.' },
+  { name: 'Material', description: 'Solid walnut base with rare earth magnets and powder coated steel card cover' },
+  { name: 'Dimensions', description: '6.25" x 3.55" x 1.15"' },
+  { name: 'Finish', description: 'Hand sanded and finished with natural oil' },
+  { name: 'Includes', description: 'Wood card tray and 3 refill packs' },
+  { name: 'Considerations', description: 'Made from natural materials. Grain and color vary with each item.' },
+]
 
 const Home = () => {
     return (
         <div className="bg-white">
       {/* Mobile menu */}
-    
-
-      
 
       <div className="container mx-auto py-9 md:py-12 px-4 lg:px-8 lg:max-w-7xl max-w-2xl">
             <div className="flex items-strech justify-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8">
@@ -112,48 +66,12 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </div>
+      </div>
 
       
-      <div className="max-w-2xl mx-auto lg:max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-        <h2 className="sr-only">Products</h2>
-
-        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {products.map((product) => (
-            <div>
-              <a key={product.id} href={product.href} className="group">
-                <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-                  <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    className="w-full h-full object-center object-cover group-hover:opacity-75"
-                  />
-                </div>
-
-                <div className="flex">
-                  <div>
-                    <h3 className="mt-3 text-md font-medium text-gray-900">{product.name}</h3>
-                  </div>
-                  <div className="ml-auto">
-                    <p className="mt-3 text-md font-medium text-gray-900">{product.price}</p>
-                  </div>
-                </div>
-              </a>
-              <button
-                className="mt-3 w-full border bg-gray-200 py-1.5 px-3 flex items-center justify-center text-base font-medium text-black"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" />
-                </svg>
-                <span>
-                Add to bag
-                </span>
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
+      <HomePageProducts />
     
+
       <div className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
@@ -181,7 +99,6 @@ const Home = () => {
         </div>
       </div>
 
-      
 
       <div className="max-w-2xl mx-auto lg:max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
             <div className=" w-full  relative flex items-center justify-center">
@@ -197,6 +114,7 @@ const Home = () => {
                 </div>
             </div>
       </div>
+
 
       <div className="max-w-2xl mx-auto py-8 px-4 grid items-center grid-cols-1 gap-y-8 gap-x-8 sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8 lg:grid-cols-2">
         <div>
@@ -238,6 +156,7 @@ const Home = () => {
           />
         </div>
       </div>
+
     </div>
     )
 }

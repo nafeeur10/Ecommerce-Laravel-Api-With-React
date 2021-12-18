@@ -83,7 +83,7 @@ class OrderService
     private function makeOrderProductsData()
     {
         $data = [];
-        foreach($this->orderProductsData['products'] as $singleProduct => $productArrayValueValue)
+        foreach($this->orderProductsData as $singleProduct => $productArrayValueValue)
         {
             $data['order_id'] = $this->orderId;
             $data['product_id'] = $productArrayValueValue['id'];

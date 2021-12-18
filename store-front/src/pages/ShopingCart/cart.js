@@ -1,37 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-const people = [
-    {
-      name: 'Jane Cooper',
-      title: 'Regional Paradigm Technician',
-      department: 'Optimization',
-      role: 'Admin',
-      email: 'jane.cooper@example.com',
-      image:
-        'https://img.icons8.com/color/60/000000/whole-apple.png',
-    },
-    {
-        name: 'Jane Cooper',
-        title: 'Regional Paradigm Technician',
-        department: 'Optimization',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-        image:
-          'https://img.icons8.com/color/60/000000/tomatoes.png',
-      },
-      {
-        name: 'Jane Cooper',
-        title: 'Regional Paradigm Technician',
-        department: 'Optimization',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-        image:
-          'https://img.icons8.com/color/60/000000/orange.png',
-      },
-  ]
+import { selectCartItems } from "../../features/cart/cartSlice";
 
 const Cart = () => {
+    const cartItems = useSelector(selectCartItems)
+    let totalPrice = 0
+    cartItems.forEach(element => {
+        totalPrice+= parseFloat(element.price)
+    });
     return (
         <div>
             <div className="flex flex-col lg:max-w-7xl max-w-2xl mx-auto mt-5 md:py-12 px-4 lg:px-8 ">
@@ -46,12 +23,6 @@ const Cart = () => {
                                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Product Name
-                            </th>
-                            <th
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                                Description
                             </th>
                             <th
                                 scope="col"
@@ -73,28 +44,25 @@ const Cart = () => {
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {people.map((person) => (
-                            <tr key={person.email}>
+                            {cartItems.map((item) => (
+                            <tr key={item.id}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0 h-10 w-10">
-                                    <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
+                                    <img className="h-10 w-10 rounded-full" src={item.image} alt="" />
                                     </div>
                                     <div className="ml-4">
-                                    <div className="text-sm font-medium text-gray-900">{person.name}</div>
+                                    <div className="text-sm font-medium text-gray-900">{item.name}</div>
                                     </div>
                                 </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{person.title}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
                                 <button className="px-2 bg-red-600 text-white">-</button>
-                                <button className="px-2 bg-gray-200 text-black">1</button>
+                                <button className="px-2 bg-gray-200 text-black">{item.qty}</button>
                                 <button className="px-2 bg-green-600 text-white">+</button>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">$600.00</div>
+                                <div className="text-sm text-gray-900">${item.price}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="#" className="text-indigo-600 hover:text-indigo-900">
@@ -116,22 +84,22 @@ const Cart = () => {
                     <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
                         <div className="flex justify-between  w-full">
                             <p className="text-base leading-4 text-gray-800">Subtotal</p>
-                            <p className="text-base leading-4 text-gray-600">$56.00</p>
+                            <p className="text-base leading-4 text-gray-600">${totalPrice.toFixed(2)}</p>
                         </div>
                         <div className="flex justify-between items-center w-full">
                             <p className="text-base leading-4 text-gray-800">
                                 Discount <span className="bg-gray-200 p-1 text-xs font-medium leading-3  text-gray-800">STUDENT</span>
                             </p>
-                            <p className="text-base leading-4 text-gray-600">-$28.00 (50%)</p>
+                            <p className="text-base leading-4 text-gray-600">-$0.00</p>
                         </div>
                         <div className="flex justify-between items-center w-full">
                             <p className="text-base leading-4 text-gray-800">Shipping</p>
-                            <p className="text-base leading-4 text-gray-600">$8.00</p>
+                            <p className="text-base leading-4 text-gray-600">$0.00</p>
                         </div>
                     </div>
                     <div className="flex justify-between items-center w-full">
                         <p className="text-base font-semibold leading-4 text-gray-800">Total</p>
-                        <p className="text-base font-semibold leading-4 text-gray-600">$36.00</p>
+                        <p className="text-base font-semibold leading-4 text-gray-600">${totalPrice.toFixed(2)}</p>
                     </div>
                 </div>
                 <Link to="/checkout" className="ml-auto px-8 py-3 bg-green-600 text-white text-center w-1/3">

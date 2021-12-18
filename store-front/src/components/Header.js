@@ -1,11 +1,46 @@
 import { MenuIcon, SearchIcon, ShoppingBagIcon } from '@heroicons/react/outline'
-import React, { useState, Fragment } from 'react';
+import { ChevronDownIcon, LogoutIcon } from '@heroicons/react/solid'
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Transition, Menu } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser, logout } from '../features/user/userSlice';
+import { useNavigate } from "react-router-dom";
+import { selectCartItems } from '../features/cart/cartSlice';
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 const Header = () => {
+    const dispatch = useDispatch()
+    let navigate = useNavigate()
+    const cartItems = useSelector(selectCartItems)
+
+    const user = useSelector(selectUser)
+    const [hasUser, setHasUser] = useState(false)
     const [open, setOpen] = useState(false)
+    const [totalCartItems, setTotalCartItems] = useState(0)
+
+    const Logout = () => {
+        dispatch(logout())
+        navigate("/login", { replace: true });
+        setHasUser(false)
+    }
+
+    useEffect( () => {
+        setTimeout( () => {
+            if(user) setHasUser(true)
+            if(cartItems.length > 0) {
+                setTotalCartItems(cartItems.length)
+            }
+            else
+            {
+                setTotalCartItems(0)
+            }
+        }, 10)
+    }, [user, cartItems])
     return (
         <div className="bg-white">
             <Transition.Root show={open} as={Fragment}>
@@ -43,22 +78,32 @@ const Header = () => {
                     </button>
                 </div>
 
-                <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                {!hasUser && <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                     <div className="flow-root">
-                    <Link to="/login">
-                    <a className="-m-2 p-2 block font-medium text-gray-900">
-                        Sign in
-                    </a>
-                    </Link>
+                        <Link to="/login">
+                            <a className="-m-2 p-2 block font-medium text-gray-900">
+                                Sign in
+                            </a>
+                        </Link>
                     </div>
                     <div className="flow-root">
-                    <Link to="/register">
-                    <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
-                        Create account
-                    </a>
-                    </Link>
+                        <Link to="/register">
+                            <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
+                                Create account
+                            </a>
+                        </Link>
                     </div>
                 </div>
+                }
+                { hasUser && <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                    <div className="flow-root">
+                        <Link to="/login">
+                            <a className="-m-2 p-2 block font-medium text-gray-900">
+                                My Account
+                            </a>
+                        </Link>
+                    </div>
+                </div> }
                 </div>
             </Transition.Child>
             </Dialog>
@@ -90,6 +135,7 @@ const Header = () => {
 
                     <div className="ml-auto flex items-center">
                         <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                        { !hasUser && <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                         <Link to="/login">
                             <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                 Log in
@@ -101,6 +147,47 @@ const Header = () => {
                             Create account
                         </a>
                         </Link>
+                        </div>}
+                        {
+                            hasUser && <Menu as="div" className="relative inline-block text-left">
+                            <div>
+                              <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                                My Account
+                                <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+                              </Menu.Button>
+                            </div>
+                      
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="py-1">
+                                  <form onSubmit={(e) => Logout(e)}>
+                                    <Menu.Item>
+                                      {({ active }) => (
+                                        <button
+                                          type="submit"
+                                          className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block w-full text-left px-4 py-2 text-sm'
+                                          )}
+                                        >
+                                          Sign out
+                                        </button>
+                                      )}
+                                    </Menu.Item>
+                                  </form>
+                                </div>
+                              </Menu.Items>
+                            </Transition>
+                          </Menu>
+                        }
                         </div>
 
                         {/* Search */}
@@ -119,7 +206,7 @@ const Header = () => {
                                     className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                                     aria-hidden="true"
                                     />
-                                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{totalCartItems}</span>
                                     <span className="sr-only">items in cart, view bag</span>
                                 </a>
                             </Link>

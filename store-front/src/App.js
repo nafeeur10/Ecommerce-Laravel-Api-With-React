@@ -1,6 +1,6 @@
 import React from 'react';
-// import {Provider} from 'react-redux';
-//import {createStore } from 'redux';
+import {Provider} from 'react-redux';
+import { store } from './app/store'
 //import rootReducer from './reducers';
 
 import {Routes, Route } from 'react-router-dom';
@@ -23,18 +23,20 @@ import ProductDetails from "./pages/ProductDetails/index"
 
 const App = () => {
     return (
-      <React.Fragment>
-            <Header/>
-            <Routes>
-                <Route path="/" element={<Home />}/>
-                <Route path="login" element={<Login />}/>
-                <Route path="register" element={<Register />}/>
-                <Route path="cart" element={<Cart />}/>
-                <Route path="checkout" element={<Checkout />}/>
-                <Route path="product-details/:id" element={<ProductDetails />} />
-            </Routes>
-          <Footer/>
-      </React.Fragment>
+      <Provider store={store}>
+        <React.Fragment>
+              <Header/>
+              <Routes>
+                  <Route path="/" element={<Home />}/>
+                  <Route path="login" element={<Login />}/>
+                  <Route path="register" element={<Register />}/>
+                  <Route path="cart" element={<Cart />}/>
+                  <Route path="checkout" element={<Checkout />}/>
+                  <Route path="product-details/:id" element={<ProductDetails />} />
+              </Routes>
+            <Footer/>
+        </React.Fragment>
+      </Provider>
     )
 }
 

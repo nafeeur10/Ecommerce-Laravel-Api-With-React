@@ -28,6 +28,7 @@ class AuthController extends Controller
     {
         $user = $this->authRepository->create($request->validated());
         return response()->json([
+            'user' => $user,
             'message' => 'User created successfully',
             'token' => $this->tokenManager->createToken($user)->plainTextToken,
         ], 201);
@@ -45,6 +46,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
+            'user' => $user,
             'token' => $this->tokenManager->createToken($user)->plainTextToken,
         ], 200);
     }
