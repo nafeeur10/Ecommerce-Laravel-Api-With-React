@@ -15,11 +15,12 @@ export const createNewOrder = createAsyncThunk(
     async (order, {rejectWithValue}) => {
         try {
             header['Authorization'] = "Bearer " + order.token
-            const products = []
+            const products = order.delivery
             products["products"] = order.cartItems
+            
             const response = await fetch(apiUrl + 'orders/create', {
                 method: 'POST',
-                body: (products),
+                body: JSON.stringify(products),
                 headers: header
             })
 

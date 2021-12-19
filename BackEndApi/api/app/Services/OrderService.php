@@ -77,13 +77,18 @@ class OrderService
         $data = [];
         $data['user_id'] = auth()->user()->id;
         $data['status'] = OrderStatus::PENDING;
+        $data['delivery_name'] = $this->orderProductsData['delivery_name'];
+        $data['delivery_mobile'] = $this->orderProductsData['delivery_mobile'];
+        $data['delivery_email'] = $this->orderProductsData['delivery_email'];
+        $data['delivery_address'] = $this->orderProductsData['delivery_address'];
         return $data;
     }
 
     private function makeOrderProductsData()
     {
         $data = [];
-        foreach($this->orderProductsData as $singleProduct => $productArrayValueValue)
+        $orderProducts = $this->orderProductsData["products"] ?? $this->orderProductsData;
+        foreach($orderProducts as $singleProduct => $productArrayValueValue)
         {
             $data['order_id'] = $this->orderId;
             $data['product_id'] = $productArrayValueValue['id'];

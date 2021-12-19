@@ -10,13 +10,27 @@ const Checkout = () => {
     let navigate = useNavigate()
     const cartItems = useSelector(selectCartItems)
     const token = useSelector(selectAuthToken)
+
+    const [deliveryName, setDeliveryName] = useState('')
+    const [deliveryMobile, setDeliveryMobile] = useState('')
+    const [deliveryEmail, setDeliveryEmail] = useState('')
+    const [deliveryAddress, setDeliveryAddress] = useState('')
+
     let totalPrice = 0
     cartItems.forEach(element => {
         totalPrice+= parseFloat(element.price)
     });
 
+    let addressData = {
+        delivery_name: deliveryName,
+        delivery_mobile: deliveryMobile,
+        delivery_email: deliveryEmail,
+        delivery_address: deliveryAddress
+    }
+
     let orderPlaceData = {
         cartItems: cartItems,
+        delivery: addressData,
         token: token
     }
 
@@ -131,25 +145,53 @@ const Checkout = () => {
                         </div>
 
                         <div className="p-8 bg-gray-100 flex flex-col lg:w-full xl:w-3/5">
-                        
+                            <form onSubmit={(e) => createOrder(e)}>
+                            <p className="text-2xl lg:text-3xl ml-8 md:ml-0 font-semibold leading-7 lg:leading-9 text-gray-800">Delivery Address</p>
                             <div className="mt-8">
-                                <input className="border border-gray-300 p-4 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600" type="text" placeholder="Full Name" />
+                                <input className="border border-gray-300 px-4 py-2 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600" 
+                                type="text"
+                                required
+                                placeholder="Full Name"
+                                value={deliveryName}
+                                onChange={(e) => setDeliveryName(e.target.value)}
+                                />
+                            </div>
+
+                            
+                            <div className="mt-3 flex">
+                                <input className="border border-gray-300 px-4 py-2 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600 mr-3" 
+                                type="text" 
+                                required
+                                placeholder="Phone Number" 
+                                value={deliveryMobile}
+                                onChange={(e) => setDeliveryMobile(e.target.value)}
+                                />
+                                <input className="border border-gray-300 px-4 py-2 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600" 
+                                type="email" 
+                                placeholder="Email (Optional)" 
+                                value={deliveryEmail}
+                                onChange={(e) => setDeliveryEmail(e.target.value)}
+                                />
                             </div>
 
                             <div className="mt-3">
-                                <input className="border border-gray-300 p-4 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600" type="text" placeholder="Phone Number" />
+                                <textarea rows="5" 
+                                className="border border-gray-300 p-4 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600" 
+                                type="text" 
+                                required
+                                placeholder="Full Address"
+                                value={deliveryAddress}
+                                onChange={(e) => setDeliveryAddress(e.target.value)}
+                                ></textarea>
                             </div>
 
-                            <div className="mt-3">
-                                <textarea rows="5" className="border border-gray-300 p-4 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600" type="text" placeholder="Full Address"></textarea>
-                            </div>
-
-                            <button className="mt-8 border border-transparent hover:border-gray-300 bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded w-full"
-                            onClick={(e) => createOrder(e)}>
+                            <button className="mt-8 border border-transparent hover:border-gray-300 bg-gray-900 text-white flex justify-center items-center py-4 rounded w-full"
+                            >
                                 <div>
                                     <p className="text-base leading-4">Place Order</p>
                                 </div>
                             </button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,11 @@ class OrderRequest extends FormRequest
             'products.*.id' => 'required',
             'products.*.name' => 'required',
             'products.*.price' => 'required',
-            'products.*.qty' => 'required|numeric|min:1'
+            'products.*.qty' => 'required|numeric|min:1',
+            'delivery_name' => 'required',
+            'delivery_mobile' => 'required',
+            'delivery_email' => 'sometimes|email',
+            'delivery_address' => 'required'
         ];
     }
 }

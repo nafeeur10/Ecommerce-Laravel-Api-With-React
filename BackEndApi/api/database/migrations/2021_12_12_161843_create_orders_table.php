@@ -18,6 +18,10 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('status', ['pending','rejected', 'accepted', 'cancel'])->default('pending')->index();
+            $table->string('delivery_name');
+            $table->string('delivery_mobile');
+            $table->string('delivery_email')->nullable();
+            $table->text('delivery_address');
             $table->timestamps();
         });
     }
