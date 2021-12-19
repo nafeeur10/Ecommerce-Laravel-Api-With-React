@@ -17,6 +17,7 @@ const Header = () => {
     const dispatch = useDispatch()
     let navigate = useNavigate()
     const cartItems = useSelector(selectCartItems)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     const user = useSelector(selectUser)
     const [hasUser, setHasUser] = useState(false)
@@ -30,6 +31,7 @@ const Header = () => {
     }
 
     useEffect( () => {
+        if(user) { user.id === 1 ? setIsAdmin(true): setIsAdmin(false) }
         setTimeout( () => {
             if(user) setHasUser(true)
             if(cartItems.length > 0) {
@@ -183,6 +185,20 @@ const Header = () => {
                                       )}
                                     </Menu.Item>
                                   </form>
+                                  { isAdmin && <Menu.Item>
+                                      {({ active }) => (
+                                        <Link to="/product/create"
+                                        
+                                          className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block w-full text-left px-4 py-2 text-sm'
+                                          )}
+                                        >
+                                        <a>Create Product</a>
+                                        </Link>
+                                      )}
+                                    </Menu.Item>
+                                  }
                                 </div>
                               </Menu.Items>
                             </Transition>

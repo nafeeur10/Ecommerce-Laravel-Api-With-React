@@ -1,5 +1,5 @@
-import React from 'react';
-import {Provider} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import {Provider, useSelector} from 'react-redux';
 import { store } from './app/store'
 //import rootReducer from './reducers';
 
@@ -15,6 +15,8 @@ import Register from "./pages/Auth/register"
 import Cart from "./pages/ShopingCart/cart"
 import Checkout from "./pages/ShopingCart/checkout"
 import ProductDetails from "./pages/ProductDetails/index"
+import { selectUser } from './features/user/userSlice';
+import ProductCreate from './pages/Admin/Product/Create';
 // import ProductDetail from "./pages/ProductDetail/ProductDetail";
 // import ShoppingCart from "./pages/ShopingCart/ShoppingCart";
 
@@ -22,21 +24,26 @@ import ProductDetails from "./pages/ProductDetails/index"
 //export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const App = () => {
+    const [isAdmin, setIsAdmin] = useState(false)
+    const user = useSelector(selectUser)
+
+    useEffect(() => {
+      if(user) { user.id === 1 ? setIsAdmin(true): setIsAdmin(false) }
+    }, [user])
     return (
-      <Provider store={store}>
-        <React.Fragment>
-              <Header/>
-              <Routes>
-                  <Route path="/" element={<Home />}/>
-                  <Route path="login" element={<Login />}/>
-                  <Route path="register" element={<Register />}/>
-                  <Route path="cart" element={<Cart />}/>
-                  <Route path="checkout" element={<Checkout />}/>
-                  <Route path="product-details/:id" element={<ProductDetails />} />
-              </Routes>
-            <Footer/>
-        </React.Fragment>
-      </Provider>
+      <React.Fragment>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<Home />}/>
+                <Route path="login" element={<Login />}/>
+                <Route path="register" element={<Register />}/>
+                <Route path="cart" element={<Cart />}/>
+                <Route path="checkout" element={<Checkout />}/>
+                <Route path="product-details/:id" element={<ProductDetails />} />
+                { isAdmin && <Route path="product/create" element={<ProductCreate />} />}
+            </Routes>
+          <Footer/>
+      </React.Fragment>
     )
 }
 
